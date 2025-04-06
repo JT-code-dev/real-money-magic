@@ -7,19 +7,18 @@ import Hello from "./screens/Hello";
 import Layout from "./components/Layout";
 import Profile from "./screens/Profile";
 import Report from "./screens/ReportsScreen";
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
-    <>
-      <Routes>
-        {/* Default route redirects to login */}
-        <Route path="/" element={<Navigate to="/login" />} />
+    <Routes>
+      {/* Default route redirects to login */}
+      <Route path="/" element={<Navigate to="/login" />} />
 
-        {/* Public pages */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/hello" element={<Hello />} />
+      {/* Public pages */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/hello" element={<Hello />} />
 
       {/* Protected pages */}
       <Route
@@ -70,7 +69,7 @@ function App() {
           </ProtectedRoute>
         }
       />
-	 <Route
+      <Route
         path="/report"
         element={
           <ProtectedRoute>
@@ -78,10 +77,8 @@ function App() {
           </ProtectedRoute>
         }
       />
-	  <Route path="/report" element={<Report />} />
+      <Route path="/report" element={<Report />} />
     </Routes>
-
   );
 }
-
 export default App;
