@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../graphql/mutations';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../graphql/mutations1";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const [loginUser] = useMutation(LOGIN_USER);
@@ -28,15 +28,15 @@ const Login = () => {
       });
 
       if (data?.login?.accessToken) {
-        localStorage.setItem('token', data.login.accessToken);
-        localStorage.setItem('refresh_token', data.login.refreshToken);
-        navigate('/dashboard');
+        localStorage.setItem("token", data.login.accessToken);
+        localStorage.setItem("refresh_token", data.login.refreshToken);
+        navigate("/dashboard");
       } else {
-        alert('Invalid login');
+        alert("Invalid login");
       }
     } catch (err) {
-      console.error('Login failed:', err);
-      alert('Login failed. Please try again.');
+      console.error("Login failed:", err);
+      alert("Login failed. Please try again.");
     }
   };
 
@@ -48,11 +48,19 @@ const Login = () => {
       <div className="absolute inset-0 bg-white/40 backdrop-blur-sm z-0" />
 
       <div className="relative z-10 bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl p-8 w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center text-[#1D7E5F] mb-6">Welcome Back 🌿</h2>
+        <h2 className="text-3xl font-bold text-center text-[#1D7E5F] mb-6">
+          Welcome Back 🌿
+        </h2>
         <p className="text-center text-base text-[#1D7E5F] font-semibold mt-2 mb-6 leading-relaxed">
-        <span className="text-xl text-yellow-400 drop-shadow-md animate-pulse">✨</span>{' '}
-         Transform your relationship with money<br />and transform your life{' '}
-        <span className="text-xl text-yellow-400 drop-shadow-md animate-pulse">✨</span>
+          <span className="text-xl text-yellow-400 drop-shadow-md animate-pulse">
+            ✨
+          </span>{" "}
+          Transform your relationship with money
+          <br />
+          and transform your life{" "}
+          <span className="text-xl text-yellow-400 drop-shadow-md animate-pulse">
+            ✨
+          </span>
         </p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -79,8 +87,10 @@ const Login = () => {
           </button>
         </form>
         <p className="mt-4 text-center text-sm text-gray-600">
-          Don’t have an account?{' '}
-          <a href="/signup" className="text-[#1D7E5F] hover:underline">Create one</a>
+          Don’t have an account?{" "}
+          <a href="/signup" className="text-[#1D7E5F] hover:underline">
+            Create one
+          </a>
         </p>
       </div>
     </div>

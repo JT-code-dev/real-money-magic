@@ -1,22 +1,25 @@
-// src/App.tsx (simplified - no Layout)
-
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Login from './components/login';
-import Signup from './screens/Signup';
-import Dashboard from './screens/Dashboard';
-import Hello from './screens/Hello';
+// src/App.tsx
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./components/login";
+import Signup from "./screens/Signup";
+import Dashboard from "./screens/Dashboard";
+import Hello from "./screens/Hello";
+import Layout from "./components/Layout";
+import Profile from "./screens/Profile";
+import Report from "./screens/ReportsScreen";
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <Routes>
-      {/* Default route redirects to login */}
-      <Route path="/" element={<Navigate to="/login" />} />
+    <>
+      <Routes>
+        {/* Default route redirects to login */}
+        <Route path="/" element={<Navigate to="/login" />} />
 
-      {/* Public pages */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/hello" element={<Hello />} />
+        {/* Public pages */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/hello" element={<Hello />} />
 
       {/* Protected pages */}
       <Route
@@ -63,13 +66,22 @@ function App() {
         path="/profile"
         element={
           <ProtectedRoute>
-            <div>Profile Page</div>
+            <Profile />
           </ProtectedRoute>
         }
       />
+	 <Route
+        path="/report"
+        element={
+          <ProtectedRoute>
+            <Report />
+          </ProtectedRoute>
+        }
+      />
+	  <Route path="/report" element={<Report />} />
     </Routes>
+
   );
 }
 
 export default App;
-

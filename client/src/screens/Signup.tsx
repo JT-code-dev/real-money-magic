@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { REGISTER_USER } from "../graphql/mutations";
+import { REGISTER_USER } from "../graphql/mutations1";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
@@ -61,9 +61,15 @@ const Signup = () => {
 
         {/* ✨ Sparkle Magic Line */}
         <p className="text-center text-base text-[#1D7E5F] font-semibold mt-2 mb-6 leading-relaxed">
-        <span className="text-xl text-yellow-400 drop-shadow-md animate-pulse">✨</span>{' '}
-         Transform your relationship with money<br />and transform your life{' '}
-        <span className="text-xl text-yellow-400 drop-shadow-md animate-pulse">✨</span>
+          <span className="text-xl text-yellow-400 drop-shadow-md animate-pulse">
+            ✨
+          </span>{" "}
+          Transform your relationship with money
+          <br />
+          and transform your life{" "}
+          <span className="text-xl text-yellow-400 drop-shadow-md animate-pulse">
+            ✨
+          </span>
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -108,8 +114,10 @@ const Signup = () => {
         </form>
 
         <p className="mt-4 text-center text-sm text-gray-600">
-          Already have an account?{' '}
-          <a href="/login" className="text-[#1D7E5F] hover:underline">Log in</a>
+          Already have an account?{" "}
+          <a href="/login" className="text-[#1D7E5F] hover:underline">
+            Log in
+          </a>
         </p>
       </div>
     </div>
