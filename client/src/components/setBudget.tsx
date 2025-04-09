@@ -1,125 +1,97 @@
-// this is the page where you ask user to input their expected budget and then what their spending limit is 
-//this is the place where color coding would get set or other method
+import React, { useState } from "react";
+import { useQuery, useMutation, gql } from "@apollo/client";
 
-import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
-
-const ADD_BUDGET = gql`
-  mutation AddBudget($input: BudgetInput!) {
-    addBudget(input: $input) {
-      success
-      message
+const GET_PROJECTS = gql`
+  query {
+    myProjects {
+      id
+      title
     }
   }
 `;
 
-interface Budget {
-  food: number;
-  gas: number;
-  rent: number;
-  clothes: number;
-  recreation: number;
-  utilities: number;
-  otherAmount: number;
-  otherNote: string;
-}
-
-const SetBudget: React.FC = () => {
-  const [budget, setBudget] = useState<Budget>({
-    food: 0,
-    gas: 0,
-    rent: 0,
-    clothes: 0,
-    recreation: 0,
-    utilities: 0,
-    otherAmount: 0,
-    otherNote: '',
-  });
-
-  const [addBudget, { loading, error, data }] = useMutation(ADD_BUDGET);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setBudget({ ...budget, [name]: name === 'otherNote' ? value : parseFloat(value) });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    localStorage.setItem('userBudget', JSON.stringify(budget));
-
-    try {
-      const response = await addBudget({ variables: { input: budget } });
-      console.log(response.data);
-      alert('Budget submitted successfully!');
-    } catch (err) {
-      console.error('Submission error:', err);
+const SET_BUDGET = gql`
+  mutation SetBudget($projectId: ID!, $budgetData: [BudgetEntryInput!]!) {
+    updateBudgetData(projectId: $projectId, budgetData: $budgetData) {
+      id
+      budgetData {
+        category
+        amount
+      }
     }
+  }
+`;
+
+const SetBudget = () => {
+  interface Project {
+    id: string;
+    title: string;
+  }
+
+  const { data, loading, error } = useQuery<{ myProjects: Project[] }>(GET_PROJECTS);
+  const [setBudget] = useMutation(SET_BUDGET);
+
+  interface BudgetEntry {
+    category: string;
+    amount: string;
+  }
+
+  const [entries, setEntries] = useState<Record<string, BudgetEntry>>({});
+
+  if (loading) return <p>Loading projects...</p>;
+  if (error) return <p>Error loading projects</p>;
+
+  const handleChange = (projectId: string, field: string, value: string) => {
+    setEntries((prev) => ({
+      ...prev,
+      [projectId]: {
+        ...prev[projectId],
+        [field]: value,
+      },
+    }));
   };
 
+  const handleSubmit = async () => {
+    for (const [projectId, entry] of Object.entries(entries)) {
+      await setBudget({
+        variables: {
+          projectId,
+          budgetData: [
+            {
+              category: entry.category,
+              amount: parseFloat(entry.amount),
+            },
+          ],
+        },
+      });
+    }
+    console.log("Budget data saved!");
+  };
+  
   return (
-    <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-xl mt-6">
-      <h2 className="text-xl font-bold mb-4 text-center">Set Your Monthly Budget</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-      {['food', 'gas', 'rent', 'clothes', 'recreation', 'utilities'].map((category) => (
-        <div key={category}>
-          <label htmlFor={category} className="block font-medium capitalize">
-            {category} ($):
-          </label>
-            <input
-              id={category}
-              type="number"
-              name={category}
-              title={`Enter your monthly ${category} budget`}
-              placeholder={`Enter amount for ${category}`}
-              value={budget[category as keyof Budget]}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md p-2 mt-1"
-              min="0"
-              required
-            />
+    <div className="p-4">
+      <h2 className="text-xl mb-4">Set Budget for Your Projects</h2>
+      {data?.myProjects?.map((project) => (
+        <div key={project.id} className="mb-6 border-b pb-4">
+          <h3 className="font-bold">{project.title}</h3>
+          <input
+            placeholder="Category"
+            value={entries[project.id]?.category || ""}
+            onChange={(e) => handleChange(project.id, "category", e.target.value)}
+            className="block my-1"
+          />
+          <input
+            placeholder="Amount"
+            type="number"
+            value={entries[project.id]?.amount || ""}
+            onChange={(e) => handleChange(project.id, "amount", e.target.value)}
+            className="block my-1"
+          />
         </div>
       ))}
-
-      <div>
-        <label htmlFor="otherAmount" className="block font-medium">Other ($):</label>
-          <input
-            id="otherAmount"
-            type="number"
-            name="otherAmount"
-            title="Enter any other monthly budget amount"
-            placeholder="E.g., $50"
-            value={budget.otherAmount}
-            onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md p-2 mt-1"
-            min="0"
-          />
-      </div>
-
-      <div>
-        <label htmlFor="otherNote" className="block font-medium">Note for Other:</label>
-          <input
-            id="otherNote"
-            type="text"
-            name="otherNote"
-            title="Describe what the other category is for"
-            placeholder="E.g., gifts, pet care..."
-            value={budget.otherNote}
-            onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md p-2 mt-1"
-          />
-      </div>
-      
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700"
-        >
-          {loading ? 'Saving...' : 'Save Budget'}
-        </button>
-        {error && <p className="text-red-600 text-sm mt-2">Error: {error.message}</p>}
-        {data?.addBudget?.success && <p className="text-green-600 text-sm mt-2">Budget saved successfully!</p>}
-      </form>
+      <button onClick={handleSubmit} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+        Submit Budgets
+      </button>
     </div>
   );
 };
