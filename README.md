@@ -33,11 +33,11 @@
 
 ## 📸 UI Previews (Coming Soon)
 
-| Home Dashboard | Budget View | Calendar Tracker |
+| Landing Page | Budget View | Calendar Tracker |
 |----------------|-------------|------------------|
-| *(screenshot here)* | *(screenshot here)* | *(screenshot here)* |
+| ![Landing Page](./assets/Lanading.png) | ![Dashboard Budget](./assets/Profile.png) | ![Calendar Tracker](./assets/recurring%20paymentsandmonth.png) |
 
-> Once the frontend polish is complete, we’ll showcase key screens to give users a visual feel for Real Money Magic’s calming design and core features.
+> Once the frontend polish is complete, we’ll showcase key screens to give users a visual feel for Real Money Magic’s calming design core features, and more.
 
 ---
 
@@ -141,7 +141,7 @@ real-money-magic/
 - [x] Profile system with multiple project support
 - [x] Project system (limit 3 per user) (in progress)
 - [ ] Shared project access (multiple users per project) (in progress)
-- [ ] Daily expense tracker (in progress)
+- [x] Daily expense tracker
 - [ ] Stress level tracker UI (planned)
 - [ ] Receipt scanner (planned)
 - [ ] AI career/income suggestions (planned)
