@@ -171,12 +171,8 @@ real-money-magic/
 
 ## 🙌 Team Credits
 
-- **Alex** – Backend & Frontend Dev **|** System Design **|** GraphQL Logic
-- **Jen** – Frontend Dev **|** UI Design
-- **Bhavesh** – Frontend Dev **|** Component Design
-- **Louis** – Frontend Dev **|** Navigational Components & Layout
-- **Edison** – Backend & Frontend Dev **|** GraphQL **|** Team Lead
-- **Pral** – GitHub Admin **|** Proposal Architect
+- **Alex** – Lead Developer: Backend & Frontend Dev **|** System Design **|** GraphQL Logic
+- **Jen** – Lead Developer: Founder & Frontend Dev **|** UI Design
 
 ---
 
