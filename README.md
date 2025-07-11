@@ -165,14 +165,13 @@ real-money-magic/
 - **Frontend**: [coming soon]
 - **Backend**: [coming soon]
 
-> Add deployment URLs here once Render setup is complete.
 
 ---
 
 ## 🙌 Team Credits
 
 - **Alex** – Lead Developer: Backend & Frontend Dev **|** System Design **|** GraphQL Logic
-- **Jen** – Lead Developer: Founder & Frontend Dev **|** UI Design
+- **Jen** – Lead Developer: Founder & Frontend Dev **|** UI Design **|** Documentation
 
 ---
 
