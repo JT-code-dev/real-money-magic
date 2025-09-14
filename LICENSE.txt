@@ -8,10 +8,6 @@ Permission to use, copy, modify, merge, publish, distribute, sublicense, or sell
 
 - Alex | https://github.com/Amarrero0215
 - Jen | https://github.com/JT-code-dev
-- Bhavesh | https://github.com/bhavesh68
-- Louis | https://github.com/Learnando
-- Edison | https://github.com/gnanasekaran-sakthivel
-- Pral | https://github.com/argadeps
 
 Unauthorized use of any part of this codebase is prohibited.
 
